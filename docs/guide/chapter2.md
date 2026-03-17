@@ -11,7 +11,7 @@
 
 - 确保上一章搭建的开发环境能正常使用；如果之前的虚拟环境关闭了，记得重新激活（选择任意一种激活即可）
 
-```python
+```bash
 # Windows（cmd）
 langent-env\Scripts\activate
 # Windows（PowerShell）
@@ -268,7 +268,7 @@ print(result.content)
 
 
 
-### 2.2.2提示词模板进阶用法：少样本提示模板
+### 2.2.2 提示词模板进阶用法：少样本提示模板
 
 有时候，简单的提示词模板不足以让模型理解我们的需求——比如我们希望模型生成“特定格式”的内容（比如分点、带编号、有固定结构）。这时候就需要“少样本提示”：给模型看几个示例，让它照着示例的格式生成内容。LangChain的FewShotPromptTemplate就是专门做这个的。
 
@@ -417,7 +417,8 @@ chat_model = ChatOpenAI(
 
 # 2. 工程化示例管理：从JSON文件加载示例（避免硬编码，便于维护）
 with open("learning_method_examples.json", "r", encoding="utf-8") as f:
-    examples = json.load(f)
+    data = json.load(f)
+    examples = data["subject_examples"]  # 从JSON中提取示例数据
 # 示例文件格式参考（learning_method_examples.json）：
 # [
 #   {"subject": "Python编程（入门）", "difficulty": "easy", "method": "核心目标：掌握基础语法；学习步骤：1.变量与数据类型 2.条件语句；注意事项：边学边练"},
@@ -453,6 +454,9 @@ class DifficultyExampleSelector(BaseExampleSelector):
 
         # 过滤出匹配难度的所有示例
         return [ex for ex in self.examples if ex.get("difficulty") == target_difficulty]
+
+
+example_selector = DifficultyExampleSelector(examples=examples)
 
 
 # 4. 构建工程化少样本模板
@@ -545,7 +549,9 @@ StrOutputParser 的核心作用**不是清洗文本格式**，也不会主动去
 - 让模型输出可以直接参与后续字符串处理、条件判断或二次解析
 - 作为更复杂解析流程（如 JSON 解析、规则解析）的**底座组件**
 
-在 LangChain 1.0.0 以后，StrOutputParser 是**兼容性最好、稳定性最高、使用成本最低**的输出解析方案，适合作为所有复杂系统的起点。
+在 LangChain 1.0.0 以后, StrOutputParser 是**兼容性最好、稳定性最高、使用成本最低**的输出解析方案,适合作为所有复杂系统的起点。
+
+> **⚠️ 温馨提示**：在 LangChain 新版本（v0.3.x+）中, `StrOutputParser` 的解析结果可能是一个 `TextAccessor` 类型,虽然它的 `print` 时和字符串一样,但 `type()` 检查会显示其真实类型。不过这不影响其作为字符串的后续使用,支持字符串切片、拼接等操作。
 
 ```python
 from langchain_openai import ChatOpenAI
@@ -665,15 +671,15 @@ parser = PydanticOutputParser(pydantic_object=ToolInfo)
 
 # 4. Prompt + Chain
 prompt = PromptTemplate(
-    template="请介绍1个 LangChain 开发工具，严格按照要求输出。\n{format_instructions}",
-    input_variables=[],
+    template="{user_input}，严格按照要求输出。\n{format_instructions}",
+    input_variables=["user_input"],
     partial_variables={
         "format_instructions": parser.get_format_instructions()
     }
 )
 
 chain = prompt | llm | parser
-result = chain.invoke({})
+result = chain.invoke({"user_input": "请介绍1个 Python 开发工具"})
 
 print("解析后的结构化数据（Pydantic 模型对象）：")
 print(result)
@@ -776,7 +782,7 @@ print("解析结果类型：", type(result))
 解析结果类型： <class 'dict'>
 ```
 
-## 2.4 输入控制层核心总结
+## 2.4 核心组件总结
 
 输入控制层的核心目标是实现“输入可控制、输出可预期”，关键组件的核心价值：
 
@@ -786,7 +792,7 @@ print("解析结果类型：", type(result))
 
 实践原则：输入控制层的设计需结合具体业务场景，优先使用LangChain开箱即用组件，复杂场景通过自定义扩展满足需求，始终兼顾易用性与工程化可维护性。
 
-## 2.5 本章小节
+## 2.5 本章小结
 
 本章核心围绕LangChain输入控制层的实操应用与工程化落地展开，本章重点掌握三大核心组件的协同逻辑,关键要点总结如下：
 
@@ -797,6 +803,6 @@ print("解析结果类型：", type(result))
 ## 2.6 本章练习
 
 1. 复现本章核心案例：包括模型调用、提示词模板、输出解析等，确保所有案例均可成功运行并输出预期结果。
-2. 修改提示词模板与解析器：基于“学习建议生成”案例，在PromptTemplate中新增“难度等级”动态参数，重新运行并验证输入参数与输出结构的匹配性。
-4. 综合选型思考：若开发一个“结构化报告生成工具”（需固定提示格式、输出结构化数据，但无需多轮流程），需组合本章哪些核心组件？说明理由。
+2. 修改提示词模板与解析器：基于"学习建议生成"案例，在PromptTemplate中新增"难度等级"动态参数，重新运行并验证输入参数与输出结构的匹配性。
+3. 综合选型思考：若开发一个"结构化报告生成工具"（需固定提示格式、输出结构化数据，但无需多轮流程），需组合本章哪些核心组件？说明理由。
 
