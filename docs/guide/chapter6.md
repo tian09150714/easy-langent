@@ -173,7 +173,7 @@ def call_tool(state: TaskState):
     print("\n====== 节点2 call_tool 输入状态 ======")
     print(state)
 
-    result = f"工具搜索结果：关于『{state["user_query"]}』的相关知识"
+    result = f"工具搜索结果：关于『{state['user_query']}』的相关知识"
     update = {
         "tool_result": result,
         "progress": 70
@@ -189,7 +189,7 @@ def generate_answer(state: TaskState):
     print("\n====== 节点3 generate_answer 输入状态 ======")
     print(state)
 
-    answer = f"最终回答：基于工具结果 -> {state["tool_result"]}"
+    answer = f"最终回答：基于工具结果 -> {state['tool_result']}"
     update = {
         "final_answer": answer,
         "progress": 100
@@ -300,7 +300,7 @@ def llm_node(state: TaskState):
     print("\n🧠 [LLM Node] 输入状态:", state)
 
     # 模拟大模型生成
-    llm_output = f"LangGraph 是一种用于构建可控AI工作流的框架，问题是：{state["user_query"]}"
+    llm_output = f"LangGraph 是一种用于构建可控AI工作流的框架，问题是：{state['user_query']}"
 
     return {
         "llm_answer": llm_output,
@@ -434,18 +434,18 @@ class TaskState(TypedDict):
 def parse_intent(state: TaskState):
     print("\n🔹 parse_intent")
     # 简单模拟意图识别
-    intent = "summarize" if "总结" in state["user_query"] else "rewrite"
+    intent = "summarize" if "总结" in state['user_query'] else "rewrite"
     return {"intent": intent, "progress": 30}
 
 
 def summarize_node(state: TaskState):
     print("\n🔹 summarize_node")
-    return {"llm_answer": f"总结结果: {state["user_query"]}", "progress": 60}
+    return {"llm_answer": f"总结结果: {state['user_query']}", "progress": 60}
 
 
 def rewrite_node(state: TaskState):
     print("\n🔹 rewrite_node")
-    return {"llm_answer": f"改写结果: {state["user_query"]}", "progress": 60}
+    return {"llm_answer": f"改写结果: {state['user_query']}", "progress": 60}
 
 
 def final_node(state: TaskState):
@@ -787,7 +787,7 @@ def sensitive_check_node(state: TextProcessState):
     sensitive = "暴力" in state["raw_text"]
     return {
         "has_sensitive": sensitive,
-        "final_text": f"最终输出 | 摘要={state["summary_text"]} | 关键词={state["keyword_text"]}"
+        "final_text": f"最终输出 | 摘要={state['summary_text']} | 关键词={state['keyword_text']}"
     }
 
 # ===== 6. 构建 LangGraph =====
