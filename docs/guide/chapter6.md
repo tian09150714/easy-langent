@@ -495,7 +495,7 @@ display(Image(graph.get_graph().draw_mermaid_png()))
 
 从图中能清楚看到节点的运行状态，可以从图中看到我们将rewrite_node 增加到了节点 但是没有用边连接起来，于是rewrite_node变成了孤立的节点~
 
-**学习实践：**将rewrite_node 使用边连接起来，比较最后生成的图
+**学习实践：** 将rewrite_node 使用边连接起来，比较最后生成的图
 
 **条件边**：根据当前状态动态决定跳转路径，适用于分支流程。通过add_conditional_edges()方法配置，需指定“起始节点名”“条件判断函数”和“路径映射表”
 
