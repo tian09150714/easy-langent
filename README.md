@@ -35,7 +35,6 @@
 
 如果你还不掌握上述前置知识，建议先完成以下课程：
 
-- [聪明办法学 Python 第二版](https://github.com/datawhalechina/learn-python-the-smart-way-v2)
 - [Happy-llm](https://github.com/datawhalechina/happy-llm)
 - [Hello-Agents](https://github.com/datawhalechina/hello-agents)
 
