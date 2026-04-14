@@ -1,10 +1,19 @@
 import { defineConfig } from 'vitepress'
 
+// 1. 获取环境变量并判断
+// 如果环境变量 EDGEONE 等于 '1'，说明在 EdgeOne 环境，使用根路径 '/'
+// 否则默认是 GitHub Pages 环境，使用仓库子路径 '/easy-vecdb/'
+const isEdgeOne = process.env.EDGEONE === '1'
+const baseConfig = isEdgeOne ? '/' : '/easy-langent/'
+
+
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: "Easy-langent",
   description: "简单的lang框架智能体开发实践教程",
-  base: '/easy-langent/',
+  lang: 'zh-CN',
+  base: baseConfig,
+  lastUpdated: true,
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
