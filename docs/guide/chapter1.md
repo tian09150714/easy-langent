@@ -118,7 +118,6 @@ conda create -n langent-env python=3.10 -y
 
 # 2. 激活虚拟环境
 conda activate langent-env
-
 ```
 
 **方式三：使用 uv**
@@ -154,8 +153,8 @@ default = true
 ```bash
 # 创建项目目录和虚拟环境
 # 全系统通用
-uv init langent-env
-cd langent-env
+uv init easy-langent
+cd easy-langent
 uv venv -p 3.10
 ```
 
