@@ -118,7 +118,6 @@ conda create -n langent-env python=3.10 -y
 
 # 2. 激活虚拟环境
 conda activate langent-env
-
 ```
 
 **方式三：使用 uv**
@@ -134,9 +133,13 @@ conda activate langent-env
 
 **1. uv添加国内源（可选，建议）**
 
+编辑或创建配置文件
+
 Linux/Unix：在 `~/.config/uv/uv.toml` 或者 `/etc/uv/uv.toml`
 Windows：在 `%AppData%\uv\uv.toml` 或者 `%ProgramData%\uv\uv.toml`
+
 填写如下内容
+
 ```bash
 [[index]]
 url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/"
@@ -146,21 +149,38 @@ default = true
 **2. 初始化项目**
 
 打开终端并导航到对应目录
+
 ```bash
+# 创建项目目录和虚拟环境
 # 全系统通用
-uv venv -p 3.12
-uv init
+uv init easy-langent --python 3.10
+cd easy-langent
+uv venv
 ```
 
 **3. 后续操作**
 
-使用uv run xxx.py文件替代 python 即可。
+运行脚本：使用 `uv run xxx.py`  替代 `python xxx.py`
+
+包管理：使用 `uv pip` 代替 `pip` 命令
+
+激活虚拟环境：
+
+```bash
+# Windows（cmd）
+.venv\Scripts\activate
+# Windows（PowerShell）
+.\.venv\Scripts\Activate.ps1
+# Mac / Linux
+source .venv/bin/activate
+```
 
 
 ⚠️ 注意事项：
 
 - 一个项目 **只使用一种虚拟环境方式（venv、conda或uv）**
 - 后续所有 `pip install` / `python xxx.py` 操作，都必须在已激活的虚拟环境中进行
+- uv 使用 `uv run xxx.py`  替代 `python xxx.py` 和使用 `uv pip` 代替 `pip` 命令不需要手动激活虚拟环境
 
 #### 1.3.2.2 步骤2：安装核心依赖
 
@@ -190,7 +210,9 @@ pip install ipykernel      # 用于在Jupyter Notebook中运行代码
 uv add langchain langchain-openai langgraph langchain-community ipykernel
 ```
 
-安装成功验证：在终端输入`python`，进入Python交互环境，执行以下代码无报错即可：
+**安装成功验证**
+
+激活虚拟环境，在终端输入`python`，进入Python交互环境，依次执行以下代码无报错即可：
 
 ```python
 import langchain
@@ -199,14 +221,19 @@ import openai
 import importlib
 from dotenv import load_dotenv
 load_dotenv()
-```
-
-**运行结果：**
-
-```
+# 如按本文前面步骤操作，此时 `load_dotenv()` 函数返回 `False` 是正常的
 print("LangChain版本：", langchain.__version__)
 print("LangGraph版本：", importlib.metadata.version("langgraph"))
 print("OpenAI版本：", openai.__version__)
+```
+
+运行结果示例（版本以实际为准）
+
+```bash
+False
+LangChain版本： 1.2.15
+LangGraph版本： 1.1.6
+OpenAI版本： 2.31.0
 ```
 
 > **注意：** LangChain 和 LangGraph 必须安装**1.0.0以后**的版本，1.0.0以前的版本与1.0.0以后的版本不兼容，会对学习产生比较大的影响！！！
