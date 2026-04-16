@@ -165,16 +165,32 @@ source .venv/bin/activate
 **可选：配置国内镜像源（提升安装速度）**
 国内网络安装 Python 包较慢时，建议配置 PyPI（pip） 国内镜像源。
 
+> 说明：本文以**清华镜像**为例，也可根据网络状况替换为**中科大**或其他国内PyPI镜像。
+> 无论使用 venv 还是 Conda 环境，安装依赖统一使用 pip，**只需配置 pip 镜像即可**。
+
 **① pip（venv / Conda 环境通用）**
 
 设为默认（永久配置，推荐）
 
 ```bash
-pip config set global.index-url https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/
+# 清华镜像
+pip config set global.index-url https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple
+
+# 中科大镜像（备选，二选一）
+# pip config set global.index-url https://mirrors.ustc.edu.cn/pypi/simple
 ```
+
 临时使用（仅当前命令生效）：
+
 ```bash
-pip install 包名 -i https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/
+# 清华镜像
+pip install 包名 -i https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple
+
+# 中科大镜像（备选）
+# pip install 包名 -i https://mirrors.ustc.edu.cn/pypi/simple
+
+# 替换实际要安装的包名，比如：
+# pip install langchain -i https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple
 ```
 
 **② uv（uv 环境专用）**
@@ -189,6 +205,14 @@ Windows：在 `%AppData%\uv\uv.toml` 或者 `%ProgramData%\uv\uv.toml`
 ```toml
 [[index]]
 url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/"
+default = true
+```
+
+中科大镜像（备选，二选一）
+
+```toml
+[[index]]
+url = "https://mirrors.ustc.edu.cn/pypi/simple"
 default = true
 ```
 
