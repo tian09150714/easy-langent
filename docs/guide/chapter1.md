@@ -168,7 +168,7 @@ source .venv/bin/activate
 > 说明：本文以**清华镜像**为例，也可根据网络状况替换为**中科大**或其他国内PyPI镜像。
 > 无论使用 venv 还是 Conda 环境，安装依赖统一使用 pip，**只需配置 pip 镜像即可**。
 
-**① pip（venv / Conda 环境通用）**
+**1. pip（venv / Conda 环境通用）**
 
 设为默认（永久配置，推荐）
 
@@ -193,7 +193,7 @@ pip install 包名 -i https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple
 # pip install langchain -i https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple
 ```
 
-**② uv（uv 环境专用）**
+**2. uv（uv 环境专用）**
 
 编辑或创建配置文件
 
