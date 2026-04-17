@@ -166,7 +166,9 @@ source .venv/bin/activate
 国内网络安装 Python 包较慢时，建议配置 PyPI（pip） 国内镜像源。
 
 > 说明：本文以**清华镜像**为例，也可根据网络状况替换为**中科大**或其他国内PyPI镜像。
-> 无论使用 venv 还是 Conda 环境，安装依赖统一使用 pip，**只需配置 pip 镜像即可**。
+> 无论使用 venv 还是 Conda 环境，课程中统一使用 `pip` 安装依赖，**只需配置 pip 镜像**。
+>
+> Conda 提供了原生的包管理能力（`conda install`），为避免混用产生冲突，**此处不作深入介绍，了解即可**。
 
 **1. pip（venv / Conda 环境通用）**
 
