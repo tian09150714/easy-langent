@@ -58,14 +58,15 @@
 | [第七章 LangGraph进阶：多智能体协作与复杂流程管控](./docs/guide/chapter7.md) | 多智能体协作、复杂流程管控 | ✅    |
 | [第八章 综合实战：构建"谁是卧底"游戏智能体](./docs/guide/chapter8.md) | 综合实战 | ✅    |
 | [结语](./docs/guide/结语.md)        | 项目总结与展望   | ✅    |
-| <strong>相关agent项目</strong> |  |  |
-| [狼人杀（上帝视角）](./project/werewolfGameAi/README.md) | 基于langgraph开发 | ✅    |
-| [智能知识库问答](./project/AgenticRag/README.md) | 基于langchain开发 | ✅    |
-| [MCPChat](./project/MCPChat/README.md) | 基于langchain开发 | ✅    |
-| [数据处理智能体](./project/DataAgent/README.md) | 基于langchain开发 | ✅    |
 
-
-
+## 🤖 智能体 Agent 项目合集
+**📌 组队学习优秀课程项目**
+| 项目名称                                              | 备注                    | 
+| ------------------------------------------------- | ---------------------------- |
+| [狼人杀（上帝视角）](./project/werewolfGameAi/README.md) | 基于langgraph开发 |
+| [智能知识库问答](./project/AgenticRag/README.md) | 基于langchain开发 |
+| [MCPChat](./project/MCPChat/README.md) | 基于langchain开发 |
+| [数据处理智能体](./project/DataAgent/README.md) | 基于langchain开发 |
 
 ## ✨核心贡献者
 - [牧小熊-项目负责人](https://github.com/muxiaoxiong)(Datawhale成员)
